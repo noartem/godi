@@ -2,7 +2,9 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"math/rand"
+	"os"
 
 	"github.com/noartem/godi"
 )
@@ -66,7 +68,9 @@ func randEl(arr []string) string {
 }
 
 func main() {
-	c, err := godi.NewContainer(NewHello, NewRandom, NewName)
+	c, err := godi.NewContainerWithLogger(
+		log.New(os.Stdout, "", 0),
+		NewHello, NewRandom, NewName)
 	if err != nil {
 		panic(err)
 	}

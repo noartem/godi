@@ -2,17 +2,26 @@ package godi
 
 import (
 	"fmt"
+	"io/ioutil"
 	"log"
 	"reflect"
 )
 
 type Container struct {
 	deps map[string][]interface{}
+	log  *log.Logger
 }
 
 func NewContainer(deps ...interface{}) (*Container, error) {
+	logger := log.New(ioutil.Discard, "", 0)
+
+	return NewContainerWithLogger(logger, deps...)
+}
+
+func NewContainerWithLogger(logger *log.Logger, deps ...interface{}) (*Container, error) {
 	container := &Container{
 		deps: make(map[string][]interface{}),
+		log:  logger,
 	}
 
 	err := container.Register(deps)
@@ -35,7 +44,7 @@ func (container *Container) Register(deps []interface{}) error {
 }
 
 func (container *Container) RegisterOne(dep interface{}) error {
-	log.Printf("Register: %v", dep)
+	container.log.Printf("Register: %v", dep)
 
 	depVal := reflect.ValueOf(dep)
 	depType := depVal.Type()
@@ -60,7 +69,7 @@ func (container *Container) RegisterOne(dep interface{}) error {
 }
 
 func (container *Container) InitDep(dep interface{}) (interface{}, error) {
-	log.Printf("Resolve: %v", dep)
+	container.log.Printf("Resolve: %v", dep)
 
 	defer func() {
 		if r := recover(); r != nil {
@@ -90,7 +99,7 @@ func (container *Container) InitDep(dep interface{}) (interface{}, error) {
 }
 
 func (container *Container) Get(name string) (interface{}, error) {
-	log.Printf("Get: %s", name)
+	container.log.Printf("Get: %s", name)
 
 	deps := container.deps[name]
 	if deps == nil {
@@ -113,7 +122,7 @@ func (container *Container) Get(name string) (interface{}, error) {
 }
 
 func (container *Container) GetAll(name string) ([]interface{}, error) {
-	log.Printf("GetAll: %s", name)
+	container.log.Printf("GetAll: %s", name)
 
 	deps := container.deps[name]
 	if deps == nil {
