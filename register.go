@@ -11,6 +11,21 @@ const ErrorType = "error"
 // BeanOptionsType name of type BeanOptions
 const BeanOptionsType = "godi.BeanOptions"
 
+// Registrar function registering factories
+type Registrar func(c *Container) error
+
+// RegisterCompose run all registratrs
+func (container *Container) RegisterCompose(registrars ...Registrar) error {
+	for _, registrar := range registrars {
+		err := registrar(container)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
 // Register add beans fatories to DI container
 func (container *Container) Register(factories ...interface{}) error {
 	for _, factory := range factories {
