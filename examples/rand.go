@@ -10,7 +10,7 @@ type IRandom interface {
 // Random service implementaion
 type Random struct{}
 
-// NewRandom is a Random implementation factory
+// NewRandom is a IRandom factory
 func NewRandom() IRandom {
 	rand.Seed(312719581257)
 

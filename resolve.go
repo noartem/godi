@@ -5,12 +5,12 @@ import (
 	"reflect"
 )
 
-// Resolve get factory dependencies and return factory instance
-func (container *Container) Resolve(depName string, dep interface{}) (interface{}, error) {
-	container.log.Printf("Resolve: %v", dep)
+// resolveFactory get factory dependencies and return bean from factory
+func (container *Container) resolveFactory(factoryName string, factory interface{}) (interface{}, error) {
+	container.log.Printf("Resolve: %v", factory)
 
-	if container.singletons[depName] != nil {
-		return container.singletons[depName], nil
+	if container.beanSingletons[factoryName] != nil {
+		return container.beanSingletons[factoryName], nil
 	}
 
 	defer func() {
@@ -19,14 +19,13 @@ func (container *Container) Resolve(depName string, dep interface{}) (interface{
 		}
 	}()
 
-	depVal := reflect.ValueOf(dep)
-	depType := depVal.Type()
+	factoryVal := reflect.ValueOf(factory)
+	factoryType := factoryVal.Type()
 
-	numIn := depType.NumIn()
-
+	numIn := factoryType.NumIn()
 	var in []reflect.Value
 	for i := 0; i < numIn; i++ {
-		inType := depType.In(i)
+		inType := factoryType.In(i)
 
 		switch inType.Kind() {
 		case reflect.Slice:
@@ -38,7 +37,7 @@ func (container *Container) Resolve(depName string, dep interface{}) (interface{
 			for _, inValue := range inValues {
 				in = append(in, reflect.ValueOf(inValue))
 			}
-		case reflect.Struct, reflect.Interface:
+		case reflect.Struct, reflect.Interface: // TODO: Maybe remove "reflect.Struct"?
 			inValue, err := container.Get(inType.Name())
 			if err != nil {
 				return nil, fmt.Errorf("cannot get %s: %v", inType.Name(), err)
@@ -46,22 +45,22 @@ func (container *Container) Resolve(depName string, dep interface{}) (interface{
 
 			in = append(in, reflect.ValueOf(inValue))
 		default:
-			return nil, fmt.Errorf("invalid dependency of %s: %v", depName, inType)
+			return nil, fmt.Errorf("invalid dependency of %s: %v", factoryName, inType)
 		}
 	}
 
-	out := depVal.Call(in)
-	resolved, options, depErr, err := parseDepInitOut(out)
+	out := factoryVal.Call(in)
+	resolved, options, factoryErr, err := parseFactoryOut(out)
 	if err != nil {
 		return nil, err
 	}
 
-	if depErr != nil {
-		return nil, fmt.Errorf("dep error: %v", depErr)
+	if factoryErr != nil {
+		return nil, fmt.Errorf("error from factory: %v", factoryErr)
 	}
 
 	if options != nil && options.Type == Singleton {
-		container.singletons[depName] = resolved
+		container.beanSingletons[factoryName] = resolved
 	}
 
 	container.log.Printf("Dep Options: %v", options)
@@ -69,39 +68,41 @@ func (container *Container) Resolve(depName string, dep interface{}) (interface{
 	return resolved, nil
 }
 
-func parseDepInitOut(rawDepOut []reflect.Value) (interface{}, *DepOptions, error, error) {
-	var options *DepOptions
-	var depErr error
+func parseFactoryOut(factoryOut []reflect.Value) (interface{}, *BeanOptions, error, error) {
+	var options *BeanOptions
+	var factoryErr error
 
-	if len(rawDepOut) >= 2 {
-		switch rawDepOut[1].Type().Name() {
+	if len(factoryOut) >= 2 {
+		switch factoryOut[1].Type().Name() {
 		case ErrorType:
-			depErr = rawDepOut[1].Interface().(error)
-		case DepOptionsType:
-			options = rawDepOut[1].Interface().(*DepOptions)
+			factoryErr = factoryOut[1].Interface().(error)
+		case BeanOptionsType:
+			options = factoryOut[1].Interface().(*BeanOptions)
 		default:
-			return nil, nil, nil, fmt.Errorf("invalid first dep out: %v", rawDepOut[1])
+			return nil, nil, nil, fmt.Errorf("invalid first factory out: %v", factoryOut[1])
 		}
 	}
 
-	if len(rawDepOut) == 3 {
-		switch rawDepOut[2].Type().Name() {
+	if len(factoryOut) == 3 {
+		switch factoryOut[2].Type().Name() {
 		case ErrorType:
-			if depErr != nil {
-				return nil, nil, nil, fmt.Errorf("invalid dep out values: Already has error")
+			if factoryErr != nil {
+				return nil, nil, nil, fmt.Errorf("invalid factory out values: Already has error")
 			}
 
-			depErr = rawDepOut[2].Interface().(error)
-		case DepOptionsType:
+			factoryErr = factoryOut[2].Interface().(error)
+		case BeanOptionsType:
 			if options != nil {
-				return nil, nil, nil, fmt.Errorf("invalid dep out values: Already has options")
+				return nil, nil, nil, fmt.Errorf("invalid factory out values: Already has options")
 			}
 
-			options = rawDepOut[2].Interface().(*DepOptions)
+			options = factoryOut[2].Interface().(*BeanOptions)
 		default:
-			return nil, nil, nil, fmt.Errorf("invalid dep out values: %v", rawDepOut)
+			return nil, nil, nil, fmt.Errorf("invalid factory out values: %v", factoryOut)
 		}
 	}
 
-	return rawDepOut[0].Interface(), options, depErr, nil
+	bean := factoryOut[0].Interface()
+
+	return bean, options, factoryErr, nil
 }

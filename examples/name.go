@@ -10,7 +10,7 @@ type Name struct {
 	random IRandom
 }
 
-// NewName is a Name serivice implementation factory
+// NewName is a IName factory
 func NewName(random IRandom) IName {
 	return &Name{
 		random: random,

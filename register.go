@@ -8,13 +8,13 @@ import (
 // ErrorType name of type error
 const ErrorType = "error"
 
-// DepOptionsType name of type DepOptions
-const DepOptionsType = "godi.DepOptions"
+// BeanOptionsType name of type BeanOptions
+const BeanOptionsType = "godi.BeanOptions"
 
-// Register add dependencies fatories to DI container
-func (container *Container) Register(deps ...interface{}) error {
-	for _, dep := range deps {
-		err := container.RegisterOne(dep)
+// Register add beans fatories to DI container
+func (container *Container) Register(factories ...interface{}) error {
+	for _, factory := range factories {
+		err := container.RegisterOne(factory)
 		if err != nil {
 			return err
 		}
@@ -23,35 +23,35 @@ func (container *Container) Register(deps ...interface{}) error {
 	return nil
 }
 
-// RegisterOne add dependency fatory to DI container
-func (container *Container) RegisterOne(dep interface{}) error {
-	container.log.Printf("Register: %v", dep)
+// RegisterOne add bean fatory to DI container
+func (container *Container) RegisterOne(factory interface{}) error {
+	container.log.Printf("Register: %v", factory)
 
-	depType := reflect.TypeOf(dep)
+	factoryType := reflect.TypeOf(factory)
 
-	err := checkDepOut(depType)
+	err := checkFactoryOut(factoryType)
 	if err != nil {
 		return err
 	}
 
-	name := depType.Out(0).Name()
-	if container.deps[name] == nil {
-		container.deps[name] = []interface{}{}
+	name := factoryType.Out(0).Name()
+	if container.factories[name] == nil {
+		container.factories[name] = []interface{}{}
 	}
 
-	container.deps[name] = append(container.deps[name], dep)
+	container.factories[name] = append(container.factories[name], factory)
 
 	return nil
 }
 
-func checkDepOut(depType reflect.Type) error {
-	if depType.Kind() != reflect.Func {
-		return fmt.Errorf("invalid dependency type: %s", depType)
+func checkFactoryOut(factoryType reflect.Type) error {
+	if factoryType.Kind() != reflect.Func {
+		return fmt.Errorf("invalid factory type: %s", factoryType)
 	}
 
-	numOut := depType.NumOut()
+	numOut := factoryType.NumOut()
 	if numOut == 0 || numOut > 3 {
-		return fmt.Errorf("invalid dependency NumOut excepted: [1, 3], got: %d", depType.NumOut())
+		return fmt.Errorf("invalid factory NumOut excepted: [1, 3], got: %d", factoryType.NumOut())
 	}
 
 	if numOut == 1 {
@@ -60,10 +60,10 @@ func checkDepOut(depType reflect.Type) error {
 
 	var hasError, hasOpts bool
 
-	switch depType.Out(1).Name() {
+	switch factoryType.Out(1).Name() {
 	case ErrorType:
 		hasError = true
-	case DepOptionsType:
+	case BeanOptionsType:
 		hasOpts = true
 	default:
 		return fmt.Errorf("invalid second out")
@@ -73,14 +73,14 @@ func checkDepOut(depType reflect.Type) error {
 		return nil
 	}
 
-	out2Name := depType.Out(2).Name()
+	out2Name := factoryType.Out(2).Name()
 
 	if out2Name == ErrorType && hasError {
 		return fmt.Errorf("has two error out")
 	}
 
-	if out2Name == DepOptionsType && hasOpts {
-		return fmt.Errorf("has two options out")
+	if out2Name == BeanOptionsType && hasOpts {
+		return fmt.Errorf("has two bean options out")
 	}
 
 	return nil

@@ -2,48 +2,48 @@ package godi
 
 import "fmt"
 
-// Get return last registered factory by name (interface name)
+// Get return bean from last registered by name (interface name) factory
 func (container *Container) Get(name string) (interface{}, error) {
 	container.log.Printf("Get: %s", name)
 
-	deps := container.deps[name]
-	if deps == nil {
-		return nil, fmt.Errorf("dependencies with name %s is not found", name)
+	factories := container.factories[name]
+	if factories == nil {
+		return nil, fmt.Errorf("factories with name %s is not found", name)
 	}
 
-	if len(deps) == 0 {
-		return nil, fmt.Errorf("dependencies with name %s is empty", name)
+	if len(factories) == 0 {
+		return nil, fmt.Errorf("factories with name %s is empty", name)
 	}
 
 	// return last registered dependency of this type
-	dep := deps[len(deps)-1]
+	factory := factories[len(factories)-1]
 
-	iniDep, err := container.Resolve(name, dep)
+	bean, err := container.resolveFactory(name, factory)
 	if err != nil {
 		return nil, err
 	}
 
-	return iniDep, nil
+	return bean, nil
 }
 
-// GetAll return all registered factories by name (interface name)
+// GetAll return beans from all registered by name (interface name) factories
 func (container *Container) GetAll(name string) ([]interface{}, error) {
 	container.log.Printf("GetAll: %s", name)
 
-	deps := container.deps[name]
-	if deps == nil {
+	factories := container.factories[name]
+	if factories == nil {
 		return nil, fmt.Errorf("dependecies with name %s are not found", name)
 	}
 
-	iniDeps := []interface{}{}
-	for _, dep := range deps {
-		iniDep, err := container.Resolve(name, dep)
+	beans := []interface{}{}
+	for _, factory := range factories {
+		bean, err := container.resolveFactory(name, factory)
 		if err != nil {
-			return iniDeps, err
+			return beans, err
 		}
 
-		iniDeps = append(iniDeps, iniDep)
+		beans = append(beans, bean)
 	}
 
-	return iniDeps, nil
+	return beans, nil
 }

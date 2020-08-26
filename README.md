@@ -1,17 +1,15 @@
-# Godi
+# Godi [![PkgGoDev](https://pkg.go.dev/badge/github.com/noartem/godi)](https://pkg.go.dev/github.com/noartem/godi)
 
-[![PkgGoDev](https://pkg.go.dev/badge/github.com/noartem/godi)](https://pkg.go.dev/github.com/noartem/godi)
+Simple Golang [DI](https://en.wikipedia.org/wiki/Dependency_injection) container based on reflection
 
-Simple Golang DI container based on reflection
-
-Example: See [examples folder](https://github.com/noartem/godi/tree/master/examples)
+Example: [examples folder](https://github.com/noartem/godi/tree/master/examples)
 
 Godoc: [pkg.go.dev](https://pkg.go.dev/github.com/noartem/godi)
 
 ## Get started
 
 1. Install godi `go get github.com/noartem/godi`
-2. Create interfaces and services implementing these interfaces:
+2. Create interfaces and beans implementing these interfaces:
 
    ```go
    type IName interface {
@@ -25,7 +23,7 @@ Godoc: [pkg.go.dev](https://pkg.go.dev/github.com/noartem/godi)
    }
    ```
 
-3. Create interfaces implementations factories:
+3. Create bean factory:
 
    ```go
    func NewName() IName {
@@ -33,7 +31,7 @@ Godoc: [pkg.go.dev](https://pkg.go.dev/github.com/noartem/godi)
    }
    ```
 
-   In factories you can import other registered services:
+   In factory you can import other beans:
 
    ```go
    func NewName(db IDatabase, log ILogger, ...) IName {
@@ -44,20 +42,22 @@ Godoc: [pkg.go.dev](https://pkg.go.dev/github.com/noartem/godi)
    }
    ```
 
-   Factories can also return DepOptions and/or errors:
+   Factories can also return BeanOptions and/or errors:
 
    ```go
-   func NewName() (IName, *godi.DepOptions, error) {
+   func NewName() (IName, *godi.BeanOptions, error) {
        err := someFunc()
        if err != nil {
            return nil, nil, err
        }
 
-       options := &godi.DepOptions{
+       options := &godi.BeanOptions{
            Type: godi.Singleton, // Default: godi.Prototype
        }
 
-       return &Name{}, options, nil
+       name := &Name{}
+
+       return name, options, nil
    }
    ```
 
@@ -75,23 +75,25 @@ Godoc: [pkg.go.dev](https://pkg.go.dev/github.com/noartem/godi)
        ...
    ```
 
-5. Get service from a DI container:
+5. Get bean from a container:
 
    ```go
-       // get service by interface name
-       nameServiceRaw, err := c.Get("IName")
+       // get bean by interface name
+       nameBean, err := c.Get("IName")
        if err != nil {
            panic(err)
        }
 
-       nameService, ok := nameServiceRaw.(IName)
+       name, ok := nameBean.(IName)
        if !ok {
-           panic("Invalid name service")
+           panic("Invalid name bean")
        }
 
-       // now you can use name service
-       fmt.Println(nameService.Generate())
+       // now you can use IName
+       fmt.Println(name.Generate())
    }
    ```
 
-6. Have fun! full example in [examples folder](https://github.com/noartem/godi/tree/master/examples)
+6. Build your architecture based on [IOC](https://en.wikipedia.org/wiki/Inversion_of_control) with [DI](https://en.wikipedia.org/wiki/Dependency_injection)
+
+7. Profit! Full example in [examples folder](https://github.com/noartem/godi/tree/master/examples)

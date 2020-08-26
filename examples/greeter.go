@@ -10,7 +10,7 @@ type Greeter struct {
 	name IName
 }
 
-// NewGreeter is a Greeter service factory
+// NewGreeter is a IGreeter factory
 func NewGreeter(name IName) IGreeter {
 	return &Greeter{
 		name: name,

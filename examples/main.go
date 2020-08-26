@@ -7,17 +7,17 @@ import (
 )
 
 func main() {
-	// Crate DI container and register services factories
+	// Crate DI container and register factories
 	c, err := godi.NewContainer(
-		NewGreeter, // will be registered as IGreeter
-		NewRandom,  // will be registered as IRandom
-		NewName,    // will be registered as IName
+		NewGreeter, // IGreeter
+		NewRandom,  // IRandom
+		NewName,    // IName
 	)
 	if err != nil {
 		panic(err)
 	}
 
-	// Get generated service from container
+	// Get bean from container
 	greeterI, err := c.Get("IGreeter")
 	if err != nil {
 		panic(err)
@@ -25,7 +25,7 @@ func main() {
 
 	greeter, ok := greeterI.(IGreeter)
 	if !ok {
-		panic("Invalid interface")
+		panic("Invalid bean")
 	}
 
 	fmt.Println(greeter.Greet())

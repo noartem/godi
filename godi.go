@@ -7,44 +7,45 @@ import (
 
 // Container simple DI container
 type Container struct {
-	deps       map[string][]interface{}
-	singletons map[string]interface{}
-	log        *log.Logger
+	factories      map[string][]interface{}
+	beanSingletons map[string]interface{}
+	log            *log.Logger
 }
 
-type DepType int
+// BeanType type of bean
+type BeanType int
 
 const (
-	// Prototype a new instance every time dep is requested
-	Prototype DepType = iota
+	// Prototype a new instance every time bean is requested
+	Prototype BeanType = iota
 
-	// Singleton only one instance of dep per Container
+	// Singleton only one instance of bean per Container
 	Singleton
 )
 
-// DepOptions factory options
-type DepOptions struct {
-	Type DepType
+// BeanOptions factory options
+type BeanOptions struct {
+	Type BeanType
 
 	// Hooks?
 }
 
 // NewContainer create new DI container and register dependecies
-func NewContainer(deps ...interface{}) (*Container, error) {
+func NewContainer(factories ...interface{}) (*Container, error) {
 	logger := log.New(ioutil.Discard, "", 0)
 
-	return NewContainerWithLogger(logger, deps...)
+	return NewContainerWithLogger(logger, factories...)
 }
 
 // NewContainerWithLogger create new DI container with custom logger and register dependecies
-func NewContainerWithLogger(logger *log.Logger, deps ...interface{}) (*Container, error) {
+func NewContainerWithLogger(logger *log.Logger, factories ...interface{}) (*Container, error) {
 	container := &Container{
-		deps:       make(map[string][]interface{}),
-		singletons: make(map[string]interface{}),
-		log:        logger,
+		factories:      make(map[string][]interface{}),
+		beanSingletons: make(map[string]interface{}),
+		log:            logger,
 	}
 
-	err := container.Register(deps...)
+	err := container.Register(factories...)
 	if err != nil {
 		return nil, err
 	}
