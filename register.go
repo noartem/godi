@@ -5,6 +5,12 @@ import (
 	"reflect"
 )
 
+// ErrorType name of type error
+const ErrorType = "error"
+
+// DepOptionsType name of type DepOptions
+const DepOptionsType = "godi.DepOptions"
+
 // Register add dependencies fatories to DI container
 func (container *Container) Register(deps ...interface{}) error {
 	for _, dep := range deps {
@@ -25,7 +31,7 @@ func (container *Container) RegisterOne(dep interface{}) error {
 
 	err := checkDepOut(depType)
 	if err != nil {
-		return fmt.Errorf("Register: %v", err)
+		return err
 	}
 
 	name := depType.Out(0).Name()
@@ -40,36 +46,41 @@ func (container *Container) RegisterOne(dep interface{}) error {
 
 func checkDepOut(depType reflect.Type) error {
 	if depType.Kind() != reflect.Func {
-		return fmt.Errorf("Invalid dependency type: %s", depType)
+		return fmt.Errorf("invalid dependency type: %s", depType)
 	}
 
 	numOut := depType.NumOut()
 	if numOut == 0 || numOut > 3 {
-		return fmt.Errorf("Invalid dependency NumOut excepted: [1, 3], got: %d", depType.NumOut())
+		return fmt.Errorf("invalid dependency NumOut excepted: [1, 3], got: %d", depType.NumOut())
 	}
 
-	if numOut >= 2 {
-		out1Name := depType.Out(1).Name()
+	if numOut == 1 {
+		return nil
+	}
 
-		var hasError, hasOpts bool
+	var hasError, hasOpts bool
 
-		if out1Name == "error" {
-			hasError = true
-		} else if out1Name == "godi.DepOptions" {
-			hasOpts = true
-		}
+	switch depType.Out(1).Name() {
+	case ErrorType:
+		hasError = true
+	case DepOptionsType:
+		hasOpts = true
+	default:
+		return fmt.Errorf("invalid second out")
+	}
 
-		if numOut == 3 {
-			out2Name := depType.Out(2).Name()
+	if numOut == 2 {
+		return nil
+	}
 
-			if out2Name == "error" && hasError {
-				return fmt.Errorf("Has two error out")
-			}
+	out2Name := depType.Out(2).Name()
 
-			if out2Name == "godi.DepOptions" && hasOpts {
-				return fmt.Errorf("Has two options out")
-			}
-		}
+	if out2Name == ErrorType && hasError {
+		return fmt.Errorf("has two error out")
+	}
+
+	if out2Name == DepOptionsType && hasOpts {
+		return fmt.Errorf("has two options out")
 	}
 
 	return nil

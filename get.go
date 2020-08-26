@@ -8,11 +8,11 @@ func (container *Container) Get(name string) (interface{}, error) {
 
 	deps := container.deps[name]
 	if deps == nil {
-		return nil, fmt.Errorf("Dependencies with name %s is not found", name)
+		return nil, fmt.Errorf("dependencies with name %s is not found", name)
 	}
 
 	if len(deps) == 0 {
-		return nil, fmt.Errorf("Dependencies with name %s is empty", name)
+		return nil, fmt.Errorf("dependencies with name %s is empty", name)
 	}
 
 	// return last registered dependency of this type
@@ -32,7 +32,7 @@ func (container *Container) GetAll(name string) ([]interface{}, error) {
 
 	deps := container.deps[name]
 	if deps == nil {
-		return nil, fmt.Errorf("Dependecies with name %s are not found", name)
+		return nil, fmt.Errorf("dependecies with name %s are not found", name)
 	}
 
 	iniDeps := []interface{}{}

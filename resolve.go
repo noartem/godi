@@ -29,10 +29,10 @@ func (container *Container) Resolve(depName string, dep interface{}) (interface{
 		inType := depType.In(i)
 
 		switch inType.Kind() {
-		case reflect.Slice, reflect.Array:
+		case reflect.Slice:
 			inValues, err := container.GetAll(inType.Elem().Name())
 			if err != nil {
-				return nil, fmt.Errorf("InitDep: Cannot get %s: %v", inType.Name(), err)
+				return nil, fmt.Errorf("cannot get %s: %v", inType.Name(), err)
 			}
 
 			for _, inValue := range inValues {
@@ -41,11 +41,12 @@ func (container *Container) Resolve(depName string, dep interface{}) (interface{
 		case reflect.Struct, reflect.Interface:
 			inValue, err := container.Get(inType.Name())
 			if err != nil {
-				return nil, fmt.Errorf("InitDep: Cannot get %s: %v", inType.Name(), err)
+				return nil, fmt.Errorf("cannot get %s: %v", inType.Name(), err)
 			}
+
 			in = append(in, reflect.ValueOf(inValue))
 		default:
-			return nil, fmt.Errorf("InitDep: Invalid dependency of %s: %v", depName, inType)
+			return nil, fmt.Errorf("invalid dependency of %s: %v", depName, inType)
 		}
 	}
 
@@ -56,7 +57,7 @@ func (container *Container) Resolve(depName string, dep interface{}) (interface{
 	}
 
 	if depErr != nil {
-		return nil, fmt.Errorf("Dep error: %v", depErr)
+		return nil, fmt.Errorf("dep error: %v", depErr)
 	}
 
 	if options != nil && options.Type == Singleton {
@@ -74,31 +75,31 @@ func parseDepInitOut(rawDepOut []reflect.Value) (interface{}, *DepOptions, error
 
 	if len(rawDepOut) >= 2 {
 		switch rawDepOut[1].Type().Name() {
-		case "error":
+		case ErrorType:
 			depErr = rawDepOut[1].Interface().(error)
-		case "godi.DepOptions":
+		case DepOptionsType:
 			options = rawDepOut[1].Interface().(*DepOptions)
 		default:
-			return nil, nil, nil, fmt.Errorf("Invalid first dep out: %v", rawDepOut[1])
+			return nil, nil, nil, fmt.Errorf("invalid first dep out: %v", rawDepOut[1])
 		}
 	}
 
 	if len(rawDepOut) == 3 {
 		switch rawDepOut[2].Type().Name() {
-		case "error":
+		case ErrorType:
 			if depErr != nil {
-				return nil, nil, nil, fmt.Errorf("Invalid dep out values: Already has error")
+				return nil, nil, nil, fmt.Errorf("invalid dep out values: Already has error")
 			}
 
 			depErr = rawDepOut[2].Interface().(error)
-		case "godi.DepOptions":
+		case DepOptionsType:
 			if options != nil {
-				return nil, nil, nil, fmt.Errorf("Invalid dep out values: Already has options")
+				return nil, nil, nil, fmt.Errorf("invalid dep out values: Already has options")
 			}
 
 			options = rawDepOut[2].Interface().(*DepOptions)
 		default:
-			return nil, nil, nil, fmt.Errorf("Invalid dep out values: %v", rawDepOut)
+			return nil, nil, nil, fmt.Errorf("invalid dep out values: %v", rawDepOut)
 		}
 	}
 
