@@ -34,9 +34,7 @@ func (container *Container) resolveFactory(factoryName string, factory interface
 				return nil, fmt.Errorf("cannot get %s: %v", inType.Name(), err)
 			}
 
-			for _, inValue := range inValues {
-				in = append(in, reflect.ValueOf(inValue))
-			}
+			in = append(in, convertToTypedSlice(inType, inValues))
 		case reflect.Struct, reflect.Interface: // TODO: Maybe remove "reflect.Struct"?
 			inValue, err := container.Get(inType.Name())
 			if err != nil {
@@ -66,6 +64,18 @@ func (container *Container) resolveFactory(factoryName string, factory interface
 	container.log.Printf("Dep Options: %v", options)
 
 	return resolved, nil
+}
+
+func convertToTypedSlice(valuesType reflect.Type, values []interface{}) reflect.Value {
+	valueType := valuesType.Elem()
+	typedValues := reflect.MakeSlice(valuesType, 0, 0)
+
+	for _, value := range values {
+		typedValue := reflect.ValueOf(value).Convert(valueType)
+		typedValues = reflect.Append(typedValues, typedValue)
+	}
+
+	return typedValues
 }
 
 func parseFactoryOut(factoryOut []reflect.Value) (interface{}, *BeanOptions, error, error) {

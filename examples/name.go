@@ -11,9 +11,9 @@ type Name struct {
 }
 
 // NewName is a IName factory
-func NewName(random IRandom) IName {
+func NewName(randoms []IRandom) IName {
 	return &Name{
-		random: random,
+		random: randoms[0],
 	}
 }
 

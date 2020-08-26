@@ -28,5 +28,7 @@ func main() {
 		panic("Invalid bean")
 	}
 
-	fmt.Println(greeter.Greet())
+	for i := 0; i < 10; i++ {
+		fmt.Println(greeter.Greet())
+	}
 }
