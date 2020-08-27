@@ -1,5 +1,11 @@
 package main
 
+import (
+	"fmt"
+
+	"github.com/noartem/godi"
+)
+
 // IGreeter greeter service interface
 type IGreeter interface {
 	Greet() string
@@ -11,10 +17,18 @@ type Greeter struct {
 }
 
 // NewGreeter is a IGreeter factory
-func NewGreeter(name IName) IGreeter {
-	return &Greeter{
+func NewGreeter(name IName, password IPassword) (IGreeter, godi.BeanOptions) {
+	fmt.Println("(Password: \"" + password + "\")")
+
+	greeter := &Greeter{
 		name: name,
 	}
+
+	options := godi.BeanOptions{
+		Type: godi.Singleton,
+	}
+
+	return greeter, options
 }
 
 // Greet generate greeting

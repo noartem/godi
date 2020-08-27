@@ -61,7 +61,7 @@ Godoc: [pkg.go.dev](https://pkg.go.dev/github.com/noartem/godi)
    }
    ```
 
-   or `func NewName() (IName, error) {}`, or `func NewName() (IName, *DepOptions)`
+   or `func NewName() (IName, error) {}`, or `func NewName() (IName, *godi.BeanOptions)`
 
 4. Create DI container and register factories:
 
