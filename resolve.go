@@ -62,7 +62,7 @@ func (container *Container) resolveFactory(factoryName string, factory interface
 		container.beanSingletons[factoryName] = resolved
 	}
 
-	container.log.Printf("BeanOptions: %s = %v", factoryName, options)
+	container.log.Printf("Resolved: %s = %v (options: %v)", factoryName, resolved, options)
 
 	return resolved, nil
 }

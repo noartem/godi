@@ -2,7 +2,7 @@
 
 Simple Golang [DI](https://en.wikipedia.org/wiki/Dependency_injection) container based on reflection
 
-Example: [examples folder](https://github.com/noartem/godi/tree/master/examples)
+Examples: [examples folder](https://github.com/noartem/godi/tree/master/examples)
 
 Godoc: [pkg.go.dev](https://pkg.go.dev/github.com/noartem/godi)
 
@@ -96,7 +96,7 @@ Godoc: [pkg.go.dev](https://pkg.go.dev/github.com/noartem/godi)
 
 6. Build your architecture based on [IOC](https://en.wikipedia.org/wiki/Inversion_of_control) with [DI](https://en.wikipedia.org/wiki/Dependency_injection)
 
-7. Profit! Full example in [examples folder](https://github.com/noartem/godi/tree/master/examples)
+7. Profit! See another examples in [examples folder](https://github.com/noartem/godi/tree/master/examples)
 
 ## Other features
 
