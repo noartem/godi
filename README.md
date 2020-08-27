@@ -97,3 +97,34 @@ Godoc: [pkg.go.dev](https://pkg.go.dev/github.com/noartem/godi)
 6. Build your architecture based on [IOC](https://en.wikipedia.org/wiki/Inversion_of_control) with [DI](https://en.wikipedia.org/wiki/Dependency_injection)
 
 7. Profit! Full example in [examples folder](https://github.com/noartem/godi/tree/master/examples)
+
+## Other features
+
+1. Static beans.
+   How to use:
+
+   1. Create a custom type
+
+      ```go
+      type IPassword string
+      ```
+
+   2. Create implementations
+
+      ```go
+      var defaultPassword IPassword = "qwerty123"
+      ```
+
+   3. Register
+
+      ```go
+      godi.NewContainer(defaultPassword)
+      ```
+
+      Constant will be registered as `IPassword`
+
+   4. Use it
+
+      ```go
+      func NewName(password IPassword) IName {...}
+      ```
