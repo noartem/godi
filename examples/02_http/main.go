@@ -2,17 +2,11 @@ package main
 
 import (
 	"fmt"
-	"log"
-	"os"
-
 	"github.com/noartem/godi"
 )
 
 func exec() error {
-	c, err := godi.NewContainerWithLogger(
-		log.New(os.Stdout, "", 0),
-		NewApp, PortDefault, NewHTTP, NewHelloController, NewErrorController,
-	)
+	c, err := godi.NewContainerWithLogging(NewApp, PortDefault, NewHTTP, NewHelloController, NewErrorController)
 	if err != nil {
 		return fmt.Errorf("godi.NewContainer: %v", err)
 	}

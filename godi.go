@@ -3,6 +3,7 @@ package godi
 import (
 	"io/ioutil"
 	"log"
+	"os"
 )
 
 // Container simple DI container
@@ -33,6 +34,13 @@ type BeanOptions struct {
 // NewContainer create new DI container and register dependencies
 func NewContainer(factories ...interface{}) (*Container, error) {
 	logger := log.New(ioutil.Discard, "", 0)
+
+	return NewContainerWithLogger(logger, factories...)
+}
+
+// NewContainerWithLogging create new DI container with default logger
+func NewContainerWithLogging(factories ...interface{}) (*Container, error) {
+	logger := log.New(os.Stdout, "GODI:", 0)
 
 	return NewContainerWithLogger(logger, factories...)
 }
