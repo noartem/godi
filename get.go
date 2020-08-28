@@ -35,7 +35,7 @@ func (container *Container) GetAll(name string) ([]interface{}, error) {
 		return nil, fmt.Errorf("dependecies with name %s are not found", name)
 	}
 
-	beans := []interface{}{}
+	var beans []interface{}
 	for _, factory := range factories {
 		bean, err := container.resolveFactory(name, factory)
 		if err != nil {

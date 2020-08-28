@@ -14,7 +14,7 @@ const BeanOptionsType = "BeanOptions"
 // Registrar function registering factories
 type Registrar func(c *Container) error
 
-// RegisterCompose run all registratrs
+// RegisterCompose run all registrars
 func (container *Container) RegisterCompose(registrars ...Registrar) error {
 	for _, registrar := range registrars {
 		err := registrar(container)
@@ -26,7 +26,7 @@ func (container *Container) RegisterCompose(registrars ...Registrar) error {
 	return nil
 }
 
-// Register add beans fatories to DI container
+// Register add beans factories to DI container
 func (container *Container) Register(factories ...interface{}) error {
 	for _, factory := range factories {
 		err := container.RegisterOne(factory)
@@ -38,7 +38,7 @@ func (container *Container) Register(factories ...interface{}) error {
 	return nil
 }
 
-// RegisterOne add bean fatory to DI container
+// RegisterOne add bean factory to DI container
 func (container *Container) RegisterOne(factory interface{}) error {
 	container.log.Printf("Register: %v", factory)
 

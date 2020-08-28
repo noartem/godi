@@ -30,14 +30,14 @@ type BeanOptions struct {
 	// Hooks?
 }
 
-// NewContainer create new DI container and register dependecies
+// NewContainer create new DI container and register dependencies
 func NewContainer(factories ...interface{}) (*Container, error) {
 	logger := log.New(ioutil.Discard, "", 0)
 
 	return NewContainerWithLogger(logger, factories...)
 }
 
-// NewContainerWithLogger create new DI container with custom logger and register dependecies
+// NewContainerWithLogger create new DI container with custom logger and register dependencies
 func NewContainerWithLogger(logger *log.Logger, factories ...interface{}) (*Container, error) {
 	container := &Container{
 		factories:      make(map[string][]interface{}),
