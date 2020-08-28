@@ -32,9 +32,9 @@ func (container *Container) resolveFactory(factoryName string, factory interface
 		inType := factoryType.In(i)
 
 		if inType.Kind() == reflect.Slice {
-			inValues, err := container.GetAll(inType.Elem().Name())
+			inValues, err := container.GetAll(inType.Elem().String())
 			if err != nil {
-				return nil, fmt.Errorf("cannot get %s: %v", inType.Name(), err)
+				return nil, fmt.Errorf("cannot get %s: %v", inType.String(), err)
 			}
 
 			typedValues, err := convertToTypedSlice(inType, inValues)
@@ -44,9 +44,9 @@ func (container *Container) resolveFactory(factoryName string, factory interface
 
 			in = append(in, typedValues)
 		} else {
-			inValue, err := container.Get(inType.Name())
+			inValue, err := container.Get(inType.String())
 			if err != nil {
-				return nil, fmt.Errorf("cannot get %s: %v", inType.Name(), err)
+				return nil, fmt.Errorf("cannot get %s: %v", inType.String(), err)
 			}
 
 			in = append(in, reflect.ValueOf(inValue))
@@ -54,22 +54,22 @@ func (container *Container) resolveFactory(factoryName string, factory interface
 	}
 
 	out := factoryVal.Call(in)
-	resolved, options, factoryErr, err := parseFactoryOut(out)
+	factoryOut, err := parseFactoryOutValues(out)
 	if err != nil {
 		return nil, err
 	}
 
-	if factoryErr != nil {
-		return nil, fmt.Errorf("error from factory: %v", factoryErr)
+	if factoryOut.err != nil {
+		return nil, fmt.Errorf("error from factory: %v", factoryOut.err)
 	}
 
-	if !optionsIsNil(options) && options.Type == Singleton {
-		container.beanSingletons[factoryName] = resolved
+	if !optionsIsNil(factoryOut.options) && factoryOut.options.Type == Singleton {
+		container.beanSingletons[factoryName] = factoryOut.bean
 	}
 
-	container.log.Printf("Resolved: %s = %v (options: %v)", factoryName, resolved, options)
+	container.log.Printf("Resolved: %s = %v (options: %v)", factoryName, factoryOut.bean, factoryOut.options)
 
-	return resolved, nil
+	return factoryOut.bean, nil
 }
 
 func convertToTypedSlice(valuesType reflect.Type, values []interface{}) (val reflect.Value, err error) {
@@ -90,44 +90,47 @@ func convertToTypedSlice(valuesType reflect.Type, values []interface{}) (val ref
 	return typedValues, nil
 }
 
-func parseFactoryOut(factoryOut []reflect.Value) (bean interface{}, options BeanOptions, factoryErr error, err error) {
-	if len(factoryOut) >= 2 {
-		switch factoryOut[1].Type().Name() {
+type factoryOut struct {
+	bean    interface{}
+	options BeanOptions
+	err     error
+}
+
+func parseFactoryOutValues(values []reflect.Value) (*factoryOut, error) {
+	out := &factoryOut{}
+	if len(values) >= 2 {
+		switch values[1].Type().String() {
 		case ErrorType:
-			factoryErr = factoryOut[1].Interface().(error)
+			out.err = values[1].Interface().(error)
 		case BeanOptionsType:
-			options = factoryOut[1].Interface().(BeanOptions)
+			out.options = values[1].Interface().(BeanOptions)
 		default:
-			err = fmt.Errorf("invalid first factory out: %v", factoryOut[1])
-			return
+			return nil, fmt.Errorf("invalid first factory out type: %v", values[1].Type().String())
 		}
 	}
 
-	if len(factoryOut) == 3 {
-		switch factoryOut[2].Type().Name() {
+	if len(values) == 3 {
+		switch values[2].Type().String() {
 		case ErrorType:
-			if factoryErr != nil {
-				err = fmt.Errorf("invalid factory out values: Already has error")
-				return
+			if out.err != nil {
+				return nil, fmt.Errorf("invalid factory out values: Already has error")
 			}
 
-			factoryErr = factoryOut[2].Interface().(error)
+			out.err = values[2].Interface().(error)
 		case BeanOptionsType:
-			if optionsIsNil(options) {
-				err = fmt.Errorf("invalid factory out values: Already has options")
-				return
+			if optionsIsNil(out.options) {
+				return nil, fmt.Errorf("invalid factory out values: Already has options")
 			}
 
-			options = factoryOut[2].Interface().(BeanOptions)
+			out.options = values[2].Interface().(BeanOptions)
 		default:
-			err = fmt.Errorf("invalid factory out values: %v", factoryOut)
-			return
+			return nil, fmt.Errorf("invalid factory out values: %v", values)
 		}
 	}
 
-	bean = factoryOut[0].Interface()
+	out.bean = values[0].Interface()
 
-	return
+	return out, nil
 }
 
 func optionsIsNil(options BeanOptions) bool {

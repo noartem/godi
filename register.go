@@ -9,7 +9,7 @@ import (
 const ErrorType = "error"
 
 // BeanOptionsType name of type BeanOptions
-const BeanOptionsType = "BeanOptions"
+const BeanOptionsType = "godi.BeanOptions"
 
 // Registrar function registering factories
 type Registrar func(c *Container) error
@@ -63,10 +63,10 @@ func (container *Container) RegisterOne(factory interface{}) error {
 
 func getFactoryName(factoryType reflect.Type) string {
 	if factoryType.Kind() == reflect.Func {
-		return factoryType.Out(0).Name()
+		return factoryType.Out(0).String()
 	}
 
-	return factoryType.Name()
+	return factoryType.String()
 }
 
 func checkFactoryOut(factoryType reflect.Type) error {
@@ -86,26 +86,26 @@ func checkFactoryOut(factoryType reflect.Type) error {
 
 	var hasError, hasOpts bool
 
-	switch factoryType.Out(1).Name() {
+	switch factoryType.Out(1).String() {
 	case ErrorType:
 		hasError = true
 	case BeanOptionsType:
 		hasOpts = true
 	default:
-		return fmt.Errorf("invalid second out: %s", factoryType.Out(1).Name())
+		return fmt.Errorf("invalid second out: %s", factoryType.Out(1).String())
 	}
 
 	if numOut == 2 {
 		return nil
 	}
 
-	out2Name := factoryType.Out(2).Name()
+	out2Type := factoryType.Out(2).String()
 
-	if out2Name == ErrorType && hasError {
+	if out2Type == ErrorType && hasError {
 		return fmt.Errorf("has two error out")
 	}
 
-	if out2Name == BeanOptionsType && hasOpts {
+	if out2Type == BeanOptionsType && hasOpts {
 		return fmt.Errorf("has two bean options out")
 	}
 

@@ -1,12 +1,14 @@
 package godi
 
-import "fmt"
+import (
+	"fmt"
+)
 
 // Get return bean from last registered by name (interface name) factory
 func (container *Container) Get(name string) (interface{}, error) {
 	container.log.Printf("Get: %s", name)
 
-	factories := container.factories[name]
+	factories := container.getFactories(name)
 	if factories == nil {
 		return nil, fmt.Errorf("factories with name %s is not found", name)
 	}
@@ -30,7 +32,7 @@ func (container *Container) Get(name string) (interface{}, error) {
 func (container *Container) GetAll(name string) ([]interface{}, error) {
 	container.log.Printf("GetAll: %s", name)
 
-	factories := container.factories[name]
+	factories := container.getFactories(name)
 	if factories == nil {
 		return nil, fmt.Errorf("dependecies with name %s are not found", name)
 	}
@@ -46,4 +48,15 @@ func (container *Container) GetAll(name string) ([]interface{}, error) {
 	}
 
 	return beans, nil
+}
+
+func (container *Container) getFactories(name string) []interface{} {
+	factories := container.factories[name]
+
+	// try to get factories without prefix
+	if factories == nil {
+		factories = container.factories["main." + name]
+	}
+
+	return factories
 }
