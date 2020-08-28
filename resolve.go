@@ -6,7 +6,7 @@ import (
 )
 
 // resolveFactory get factory dependencies and return bean from factory
-func (container *Container) resolveFactory(factoryName string, factory interface{}) (interface{}, error) {
+func (container *Container) resolveFactory(factoryName string, factory interface{}) (res interface{}, err error) {
 	container.log.Printf("Resolve: %s = %v", factoryName, factory)
 
 	if container.beanSingletons[factoryName] != nil {
@@ -15,7 +15,7 @@ func (container *Container) resolveFactory(factoryName string, factory interface
 
 	defer func() {
 		if r := recover(); r != nil {
-			fmt.Printf("Panic error: %v", r)
+			err = fmt.Errorf("resolveFactory: %v", r)
 		}
 	}()
 
@@ -37,7 +37,12 @@ func (container *Container) resolveFactory(factoryName string, factory interface
 				return nil, fmt.Errorf("cannot get %s: %v", inType.Name(), err)
 			}
 
-			in = append(in, convertToTypedSlice(inType, inValues))
+			typedValues, err := convertToTypedSlice(inType, inValues)
+			if err != nil {
+				return nil, err
+			}
+
+			in = append(in, typedValues)
 		} else {
 			inValue, err := container.Get(inType.Name())
 			if err != nil {
@@ -67,7 +72,13 @@ func (container *Container) resolveFactory(factoryName string, factory interface
 	return resolved, nil
 }
 
-func convertToTypedSlice(valuesType reflect.Type, values []interface{}) reflect.Value {
+func convertToTypedSlice(valuesType reflect.Type, values []interface{}) (val reflect.Value, err error) {
+	defer func() {
+		if r := recover(); r != nil {
+			err = fmt.Errorf("convertToTypedSlice: %v", r)
+		}
+	}()
+
 	valueType := valuesType.Elem()
 	typedValues := reflect.MakeSlice(valuesType, 0, 0)
 
@@ -76,7 +87,7 @@ func convertToTypedSlice(valuesType reflect.Type, values []interface{}) reflect.
 		typedValues = reflect.Append(typedValues, typedValue)
 	}
 
-	return typedValues
+	return typedValues, nil
 }
 
 func parseFactoryOut(factoryOut []reflect.Value) (bean interface{}, options BeanOptions, factoryErr error, err error) {

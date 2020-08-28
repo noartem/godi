@@ -1,13 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="060bbc38-98bd-431c-b10c-93d8d9a47fd9" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/godi.go" beforeDir="false" afterPath="$PROJECT_DIR$/godi.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resolve_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resolve.go" beforeDir="false" afterPath="$PROJECT_DIR$/resolve.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Go File" />
+      </list>
+    </option>
   </component>
   <component name="GOROOT" path="/snap/go/6274" />
   <component name="Git.Settings">
@@ -22,6 +49,7 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="DefaultGoTemplateProperty" value="Go File" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="go.import.settings.migrated" value="true" />
@@ -30,9 +58,73 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="preferences.keymap" />
   </component>
+  <component name="RunManager" selected="Go Test.go test github.com/noartem/godi">
+    <configuration name="TestConvertToTypedSlice in github.com/noartem/godi (1)" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="godi" />
+      <working_directory value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <kind value="PACKAGE" />
+      <package value="github.com/noartem/godi" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <pattern value="^\QTestConvertToTypedSlice\E$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="TestConvertToTypedSlice in github.com/noartem/godi" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="godi" />
+      <working_directory value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <kind value="PACKAGE" />
+      <package value="github.com/noartem/godi" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <pattern value="^\QTestConvertToTypedSlice\E$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="TestOptionsIsNil in github.com/noartem/godi" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="godi" />
+      <working_directory value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <kind value="PACKAGE" />
+      <package value="github.com/noartem/godi" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <pattern value="^\QTestOptionsIsNil\E$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="go test github.com/noartem/godi" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="godi" />
+      <working_directory value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <kind value="PACKAGE" />
+      <package value="github.com/noartem/godi" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Go Test.go test github.com/noartem/godi" />
+        <item itemvalue="Go Test.TestConvertToTypedSlice in github.com/noartem/godi (1)" />
+        <item itemvalue="Go Test.TestConvertToTypedSlice in github.com/noartem/godi" />
+        <item itemvalue="Go Test.TestOptionsIsNil in github.com/noartem/godi" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VgoProject">
     <integration-enabled>true</integration-enabled>
@@ -42,13 +134,33 @@
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
     <state x="981" y="390" width="400" height="327" key="#Go_Modules/0.27.1920.1053@0.27.1920.1053" timestamp="1598597370256" />
+    <state width="1422" height="278" key="GridCell.Tab.0.bottom" timestamp="1598599588608">
+      <screen x="0" y="27" width="1920" height="1053" />
+    </state>
+    <state width="1422" height="278" key="GridCell.Tab.0.bottom/0.27.1920.1053@0.27.1920.1053" timestamp="1598599588608" />
+    <state width="1422" height="278" key="GridCell.Tab.0.center" timestamp="1598599588607">
+      <screen x="0" y="27" width="1920" height="1053" />
+    </state>
+    <state width="1422" height="278" key="GridCell.Tab.0.center/0.27.1920.1053@0.27.1920.1053" timestamp="1598599588607" />
+    <state width="1422" height="278" key="GridCell.Tab.0.left" timestamp="1598599588607">
+      <screen x="0" y="27" width="1920" height="1053" />
+    </state>
+    <state width="1422" height="278" key="GridCell.Tab.0.left/0.27.1920.1053@0.27.1920.1053" timestamp="1598599588607" />
+    <state width="1422" height="278" key="GridCell.Tab.0.right" timestamp="1598599588607">
+      <screen x="0" y="27" width="1920" height="1053" />
+    </state>
+    <state width="1422" height="278" key="GridCell.Tab.0.right/0.27.1920.1053@0.27.1920.1053" timestamp="1598599588607" />
     <state x="675" y="188" key="SettingsEditor" timestamp="1598597348702">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
     <state x="675" y="188" key="SettingsEditor/0.27.1920.1053@0.27.1920.1053" timestamp="1598597348702" />
-    <state x="849" y="259" width="672" height="678" key="search.everywhere.popup" timestamp="1598597397354">
+    <state x="781" y="289" width="800" height="528" key="Vcs.Push.Dialog.v2" timestamp="1598598079600">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
-    <state x="849" y="259" width="672" height="678" key="search.everywhere.popup/0.27.1920.1053@0.27.1920.1053" timestamp="1598597397354" />
+    <state x="781" y="289" width="800" height="528" key="Vcs.Push.Dialog.v2/0.27.1920.1053@0.27.1920.1053" timestamp="1598598079600" />
+    <state x="849" y="259" width="672" height="678" key="search.everywhere.popup" timestamp="1598598098869">
+      <screen x="0" y="27" width="1920" height="1053" />
+    </state>
+    <state x="849" y="259" width="672" height="678" key="search.everywhere.popup/0.27.1920.1053@0.27.1920.1053" timestamp="1598598098869" />
   </component>
 </project>
