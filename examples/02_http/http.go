@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 
 	"github.com/noartem/godi"
@@ -25,15 +26,15 @@ type HTTP struct {
 }
 
 // NewHTTP create new IHttp
-func NewHTTP(controllers []IController, port IPort) (IHttp, godi.BeanOptions) {
-	http := &HTTP{
+func NewHTTP(controllers []IController, port IPort) (IHttp, *godi.BeanOptions) {
+	httpServer := &HTTP{
 		controllers: controllers,
 		port:        port,
 	}
 
-	options := godi.BeanOptions{Type: godi.Singleton}
+	options := &godi.BeanOptions{Type: godi.Singleton}
 
-	return http, options
+	return httpServer, options
 }
 
 // StartServer register controllers and start http server
@@ -44,7 +45,10 @@ func (h *HTTP) StartServer() error {
 			err := controller.Handler(w, r)
 			if err != nil {
 				w.WriteHeader(http.StatusInternalServerError)
-				w.Write([]byte(fmt.Sprintf("Error: %v!", err)))
+				_, err = w.Write([]byte(fmt.Sprintf("Error: %v!", err)))
+				if err != nil {
+					log.Printf("error in Write: %v", err)
+				}
 			}
 		})
 	}

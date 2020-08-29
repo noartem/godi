@@ -1,7 +1,7 @@
 package main
 
 import (
-	"fmt"
+	"log"
 
 	"github.com/noartem/godi"
 )
@@ -18,12 +18,12 @@ type App struct {
 }
 
 // NewApp create new App
-func NewApp(http IHttp) (IApp, godi.BeanOptions) {
+func NewApp(http IHttp) (IApp, *godi.BeanOptions) {
 	app := &App{
 		http: http,
 	}
 
-	options := godi.BeanOptions{
+	options := &godi.BeanOptions{
 		Type: godi.Singleton,
 	}
 
@@ -32,6 +32,6 @@ func NewApp(http IHttp) (IApp, godi.BeanOptions) {
 
 // Start start application
 func (app *App) Start() error {
-	fmt.Println("Starting server...")
+	log.Println("Starting server...")
 	return app.http.StartServer()
 }

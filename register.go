@@ -5,11 +5,11 @@ import (
 	"reflect"
 )
 
-// ErrorType name of type error
-const ErrorType = "error"
+// ErrorInterface interface of error
+var ErrorInterface = reflect.TypeOf((*error)(nil)).Elem()
 
-// BeanOptionsType name of type BeanOptions
-const BeanOptionsType = "godi.BeanOptions"
+// BeanOptionsType reflect type of BeanOptions
+var BeanOptionsType = reflect.TypeOf(&BeanOptions{})
 
 // Registrar function registering factories
 type Registrar func(c *Container) error
@@ -49,24 +49,17 @@ func (container *Container) RegisterOne(factory interface{}) error {
 		return err
 	}
 
-	name := getFactoryName(factoryType)
-	if container.factories[name] == nil {
-		container.factories[name] = []interface{}{}
+	factoryName := genFactoryName(factoryType)
+	factories := container.factories[factoryName]
+	if factories == nil {
+		factories = []interface{}{}
 	}
 
-	container.factories[name] = append(container.factories[name], factory)
+	container.factories[factoryName] = append(factories, factory)
 
-	container.log.Printf("Registered: %s = %v", name, factory)
+	container.log.Printf("Registered: %s = %v", factoryName, factory)
 
 	return nil
-}
-
-func getFactoryName(factoryType reflect.Type) string {
-	if factoryType.Kind() == reflect.Func {
-		return factoryType.Out(0).String()
-	}
-
-	return factoryType.String()
 }
 
 func checkFactoryOut(factoryType reflect.Type) error {
@@ -86,12 +79,12 @@ func checkFactoryOut(factoryType reflect.Type) error {
 
 	var hasError, hasOpts bool
 
-	switch factoryType.Out(1).String() {
-	case ErrorType:
+	out1 := factoryType.Out(1)
+	if out1.Implements(ErrorInterface) {
 		hasError = true
-	case BeanOptionsType:
+	} else if out1 == BeanOptionsType {
 		hasOpts = true
-	default:
+	} else {
 		return fmt.Errorf("invalid second out: %s", factoryType.Out(1).String())
 	}
 
@@ -99,13 +92,13 @@ func checkFactoryOut(factoryType reflect.Type) error {
 		return nil
 	}
 
-	out2Type := factoryType.Out(2).String()
+	out2 := factoryType.Out(2)
 
-	if out2Type == ErrorType && hasError {
+	if out2.Implements(ErrorInterface) && hasError {
 		return fmt.Errorf("has two error out")
 	}
 
-	if out2Type == BeanOptionsType && hasOpts {
+	if out2 == BeanOptionsType && hasOpts {
 		return fmt.Errorf("has two bean options out")
 	}
 

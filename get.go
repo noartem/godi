@@ -2,6 +2,7 @@ package godi
 
 import (
 	"fmt"
+	"reflect"
 )
 
 // Get return bean from last registered by name (interface name) factory
@@ -20,7 +21,7 @@ func (container *Container) Get(name string) (interface{}, error) {
 	// return last registered dependency of this type
 	factory := factories[len(factories)-1]
 
-	bean, err := container.resolveFactory(name, factory)
+	bean, err := container.resolveFactory(factory)
 	if err != nil {
 		return nil, err
 	}
@@ -39,7 +40,7 @@ func (container *Container) GetAll(name string) ([]interface{}, error) {
 
 	var beans []interface{}
 	for _, factory := range factories {
-		bean, err := container.resolveFactory(name, factory)
+		bean, err := container.resolveFactory(factory)
 		if err != nil {
 			return beans, err
 		}
@@ -50,12 +51,20 @@ func (container *Container) GetAll(name string) ([]interface{}, error) {
 	return beans, nil
 }
 
+func genFactoryName(factoryType reflect.Type) string {
+	if factoryType.Kind() == reflect.Func {
+		factoryType = factoryType.Out(0)
+	}
+
+	return factoryType.String()
+}
+
 func (container *Container) getFactories(name string) []interface{} {
 	factories := container.factories[name]
 
 	// try to get factories without prefix
 	if factories == nil {
-		factories = container.factories["main." + name]
+		factories = container.factories["main."+name]
 	}
 
 	return factories
