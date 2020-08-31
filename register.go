@@ -11,6 +11,11 @@ var ErrorInterface = reflect.TypeOf((*error)(nil)).Elem()
 // BeanOptionsType reflect type of BeanOptions
 var BeanOptionsType = reflect.TypeOf(&BeanOptions{})
 
+// BeanOptionsType reflect type of BeanOptions
+var InStructType = reflect.TypeOf(InStruct{})
+
+type InStruct struct{}
+
 // Registrar function registering factories
 type Registrar func(c *Container) error
 

@@ -18,7 +18,7 @@ Godoc: [pkg.go.dev](https://pkg.go.dev/github.com/noartem/godi)
 
    type Name struct {}
 
-   func (name *Name) Generate() {
+   func (name *Name) Generate() string {
        return "Lorem Ipsumovich"
    }
    ```
@@ -31,7 +31,7 @@ Godoc: [pkg.go.dev](https://pkg.go.dev/github.com/noartem/godi)
    }
    ```
 
-   In factory you can import other beans:
+   In factory, you can import other beans:
 
    ```go
    func NewName(db IDatabase, log ILogger, ...) IName {
@@ -48,7 +48,7 @@ Godoc: [pkg.go.dev](https://pkg.go.dev/github.com/noartem/godi)
    func NewName() (IName, *godi.BeanOptions, error) {
        err := someFunc()
        if err != nil {
-           return nil, nil, err
+           return &Name{}, nil, err
        }
 
        options := &godi.BeanOptions{
@@ -100,8 +100,8 @@ Godoc: [pkg.go.dev](https://pkg.go.dev/github.com/noartem/godi)
 
 ## Other features
 
-1. Static beans.
-   How to use:
+1. Static beans. 
+    Can be used for sharing constants (global config, secrets, e.t.c.)
 
    1. Create a custom type
 
@@ -128,3 +128,37 @@ Godoc: [pkg.go.dev](https://pkg.go.dev/github.com/noartem/godi)
       ```go
       func NewName(password IPassword) IName {...}
       ```
+
+2. Structures with dependencies in Input. 
+   If you don't want to write boilerplate code creating structure with all input dependency, you can write them 
+   in structure with `InStruct` field and require this as input in factory.
+
+   1. Create structure based on godi.InStruct and add your dependencies:
+
+       ```go
+       import "github.com/noartem/godi"
+    
+       type deps struct {
+          godi.InStruct
+       
+          Name IName
+          Config IConfig
+          Random IRandom
+       }
+       ```
+
+   2. Require this structure in factory:
+   
+       ```go
+       func NewHello(deps deps) IHello { ... }
+       ```
+
+   3. Use your dependencies:
+
+       ```go
+       func NewHello(deps deps) IHello {
+          log.Println(deps.Name.GenerateName())
+          log.Println(deps.Config)
+          log.Println(deps.Random.Intn(1337))
+       }
+       ```

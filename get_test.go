@@ -17,13 +17,17 @@ func (name *eName) Name() string {
 }
 
 type iHello interface{ Hello() }
-type eHello struct{ name iName }
+type eHello struct{ deps deps }
+type deps struct {
+	InStruct
+	Name iName
+}
 
-func newHello(name iName) iHello {
-	return &eHello{name: name}
+func newHello(deps deps) iHello {
+	return &eHello{deps}
 }
 func (hello *eHello) Hello() {
-	log.Println(hello.name.Name())
+	log.Println(hello.deps.Name.Name())
 }
 
 type iGreet interface{ Greet() }
@@ -51,15 +55,17 @@ func TestGet(t *testing.T) {
 			}
 
 			t.Errorf("unexcepted error from Get: %v", err)
+			return
 		}
 
 		if !reflect.DeepEqual(bean, original) {
 			t.Errorf("invalid bean: %v", err)
+			return
 		}
 	}
 
 	f("godi.iName", false, &eName{})
-	f("godi.iHello", false, &eHello{name: &eName{}})
+	f("godi.iHello", false, &eHello{deps: deps{InStruct{}, &eName{}}})
 	f("godi.iGreet", true, nil)
 
 	c.factories["godi.lorem_ipsum"] = []interface{}{}
@@ -88,15 +94,17 @@ func TestGetAll(t *testing.T) {
 			}
 
 			t.Errorf("unexcepted error from GetAll: %v", err)
+			return
 		}
 
 		if len(original) != len(beans) || !reflect.DeepEqual(beans, original) {
 			t.Errorf("invalid beans excepted: %v, got: %v", original, beans)
+			return
 		}
 	}
 
 	f("godi.iName", false, &eName{})
-	f("godi.iHello", false, &eHello{name: &eName{}})
+	f("godi.iHello", false, &eHello{deps: deps{InStruct{}, &eName{}}})
 	f("godi.iGreet", true)
 
 	c.factories["godi.lorem_ipsum"] = []interface{}{}

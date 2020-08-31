@@ -30,28 +30,12 @@ func (container *Container) resolveFactory(factory interface{}) (res interface{}
 	numIn := factoryType.NumIn()
 	var in []reflect.Value
 	for i := 0; i < numIn; i++ {
-		inType := factoryType.In(i)
-
-		if inType.Kind() == reflect.Slice {
-			inValues, err := container.GetAll(inType.Elem().String())
-			if err != nil {
-				return nil, fmt.Errorf("cannot get %s: %v", inType.String(), err)
-			}
-
-			typedValues, err := convertToTypedSlice(inType, inValues)
-			if err != nil {
-				return nil, err
-			}
-
-			in = append(in, typedValues)
-		} else {
-			inValue, err := container.Get(inType.String())
-			if err != nil {
-				return nil, fmt.Errorf("cannot get %s: %v", inType.String(), err)
-			}
-
-			in = append(in, reflect.ValueOf(inValue))
+		inValue, err := container.switchInKind(factoryType.In(i))
+		if err != nil {
+			return nil, err
 		}
+
+		in = append(in, inValue)
 	}
 
 	out := factoryVal.Call(in)
@@ -71,6 +55,66 @@ func (container *Container) resolveFactory(factory interface{}) (res interface{}
 	container.log.Printf("Resolved: %s = %v (options: %v)", factoryType, factoryOut.bean, factoryOut.options)
 
 	return factoryOut.bean, nil
+}
+
+func (container *Container) switchInKind(inType reflect.Type) (reflect.Value, error) {
+	switch inType.Kind() {
+	case reflect.Slice:
+		inValues, err := container.GetAll(inType.Elem().String())
+		if err != nil {
+			return reflect.Value{}, fmt.Errorf("cannot get %s: %v", inType.String(), err)
+		}
+
+		typedValues, err := convertToTypedSlice(inType, inValues)
+		if err != nil {
+			return reflect.Value{}, err
+		}
+
+		return typedValues, nil
+	case reflect.Struct:
+		inStruct, ok := inType.FieldByName(InStructType.Name())
+		if !(ok && inStruct.Type.String() == InStructType.String()) {
+			return container.switchInKindDefault(inType)
+		}
+
+		filledStruct, err := container.fillStruct(inType)
+		if err != nil {
+			return reflect.Value{}, err
+		}
+
+		return filledStruct, nil
+	default:
+		return container.switchInKindDefault(inType)
+	}
+}
+
+func (container *Container) fillStruct(structType reflect.Type) (reflect.Value, error) {
+	newStruct := reflect.New(structType).Elem()
+
+	for i := 0; i < newStruct.NumField(); i++ {
+		structField := newStruct.Field(i)
+		if structField.Type().Name() == InStructType.Name() {
+			continue
+		}
+
+		fieldValue, err := container.Get(structField.Type().String())
+		if err != nil {
+			return reflect.Value{}, err
+		}
+
+		structField.Set(reflect.ValueOf(fieldValue))
+	}
+
+	return newStruct, nil
+}
+
+func (container *Container) switchInKindDefault(inType reflect.Type) (reflect.Value, error) {
+	inValue, err := container.Get(inType.String())
+	if err != nil {
+		return reflect.Value{}, fmt.Errorf("cannot get %s: %v", inType.String(), err)
+	}
+
+	return reflect.ValueOf(inValue), nil
 }
 
 func convertToTypedSlice(valuesType reflect.Type, values []interface{}) (val reflect.Value, err error) {

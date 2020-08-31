@@ -13,16 +13,21 @@ type IGreeter interface {
 
 // Greeter service implementation
 type Greeter struct {
-	name IName
+	deps deps
+}
+
+type deps struct {
+	godi.InStruct
+
+	Name IName
+	Pass IPassword
 }
 
 // NewGreeter is a IGreeter factory
-func NewGreeter(name IName, password IPassword) (IGreeter, *godi.BeanOptions) {
-	fmt.Println("(Password: \"" + password + "\")")
+func NewGreeter(deps deps) (IGreeter, *godi.BeanOptions) {
+	fmt.Println("(Password: \"" + deps.Pass + "\")")
 
-	greeter := &Greeter{
-		name: name,
-	}
+	greeter := &Greeter{deps}
 
 	options := &godi.BeanOptions{
 		Type: godi.Singleton,
@@ -33,5 +38,5 @@ func NewGreeter(name IName, password IPassword) (IGreeter, *godi.BeanOptions) {
 
 // Greet generate greeting
 func (h *Greeter) Greet() string {
-	return "Hello, " + h.name.Gen() + "!"
+	return "Hello, " + h.deps.Name.Gen() + "!"
 }

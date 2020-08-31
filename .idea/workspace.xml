@@ -19,9 +19,15 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="060bbc38-98bd-431c-b10c-93d8d9a47fd9" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/resolve_test.go" afterDir="false" />
+    <list default="true" id="060bbc38-98bd-431c-b10c-93d8d9a47fd9" name="Default Changelist" comment="Fix factory out validator and parser&#10;Add tests">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/01_base/greeter.go" beforeDir="false" afterPath="$PROJECT_DIR$/examples/01_base/greeter.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/01_base/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/examples/01_base/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/01_base/name.go" beforeDir="false" afterPath="$PROJECT_DIR$/examples/01_base/name.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/01_base/rand.go" beforeDir="false" afterPath="$PROJECT_DIR$/examples/01_base/rand.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/get_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/get_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/register.go" beforeDir="false" afterPath="$PROJECT_DIR$/register.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resolve.go" beforeDir="false" afterPath="$PROJECT_DIR$/resolve.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -50,6 +56,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="DefaultGoTemplateProperty" value="Go File" />
+    <property name="GO_FMT" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="go.import.settings.migrated" value="true" />
@@ -59,18 +66,16 @@
     <property name="settings.editor.selected.configurable" value="preferences.keymap" />
   </component>
   <component name="RunManager" selected="Go Test.go test github.com/noartem/godi">
-    <configuration name="TestConvertToTypedSlice in github.com/noartem/godi (1)" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+    <configuration name="go build github.com/noartem/godi/examples/01_base" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="godi" />
       <working_directory value="$PROJECT_DIR$" />
-      <framework value="gotest" />
       <kind value="PACKAGE" />
-      <package value="github.com/noartem/godi" />
+      <filePath value="$PROJECT_DIR$/examples/01_base/main.go" />
+      <package value="github.com/noartem/godi/examples/01_base" />
       <directory value="$PROJECT_DIR$" />
-      <filePath value="$PROJECT_DIR$" />
-      <pattern value="^\QTestConvertToTypedSlice\E$" />
       <method v="2" />
     </configuration>
-    <configuration name="TestConvertToTypedSlice in github.com/noartem/godi" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+    <configuration name="TestCheckFactoryOut in github.com/noartem/godi" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="godi" />
       <working_directory value="$PROJECT_DIR$" />
       <framework value="gotest" />
@@ -78,10 +83,10 @@
       <package value="github.com/noartem/godi" />
       <directory value="$PROJECT_DIR$" />
       <filePath value="$PROJECT_DIR$" />
-      <pattern value="^\QTestConvertToTypedSlice\E$" />
+      <pattern value="^\QTestCheckFactoryOut\E$" />
       <method v="2" />
     </configuration>
-    <configuration name="TestOptionsIsNil in github.com/noartem/godi" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+    <configuration name="TestGet in github.com/noartem/godi (1)" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="godi" />
       <working_directory value="$PROJECT_DIR$" />
       <framework value="gotest" />
@@ -89,7 +94,18 @@
       <package value="github.com/noartem/godi" />
       <directory value="$PROJECT_DIR$" />
       <filePath value="$PROJECT_DIR$" />
-      <pattern value="^\QTestOptionsIsNil\E$" />
+      <pattern value="^\QTestGet\E$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="TestGet in github.com/noartem/godi" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="godi" />
+      <working_directory value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <kind value="PACKAGE" />
+      <package value="github.com/noartem/godi" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <pattern value="^\QTestGet\E$" />
       <method v="2" />
     </configuration>
     <configuration name="go test github.com/noartem/godi" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
@@ -105,9 +121,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Go Test.go test github.com/noartem/godi" />
-        <item itemvalue="Go Test.TestConvertToTypedSlice in github.com/noartem/godi (1)" />
-        <item itemvalue="Go Test.TestConvertToTypedSlice in github.com/noartem/godi" />
-        <item itemvalue="Go Test.TestOptionsIsNil in github.com/noartem/godi" />
+        <item itemvalue="Go Test.TestGet in github.com/noartem/godi (1)" />
+        <item itemvalue="Go Test.TestGet in github.com/noartem/godi" />
+        <item itemvalue="Go Build.go build github.com/noartem/godi/examples/01_base" />
+        <item itemvalue="Go Test.TestCheckFactoryOut in github.com/noartem/godi" />
       </list>
     </recent_temporary>
   </component>
@@ -125,6 +142,11 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Fix factory out validator and parser&#10;Add tests" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix factory out validator and parser&#10;Add tests" />
   </component>
   <component name="VgoProject">
     <integration-enabled>true</integration-enabled>
@@ -134,33 +156,64 @@
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
     <state x="981" y="390" width="400" height="327" key="#Go_Modules/0.27.1920.1053@0.27.1920.1053" timestamp="1598597370256" />
-    <state width="1422" height="278" key="GridCell.Tab.0.bottom" timestamp="1598599588608">
+    <state x="1099" y="279" width="163" height="548" key="#xdebugger.XInspectDialog" timestamp="1598890523043">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
-    <state width="1422" height="278" key="GridCell.Tab.0.bottom/0.27.1920.1053@0.27.1920.1053" timestamp="1598599588608" />
-    <state width="1422" height="278" key="GridCell.Tab.0.center" timestamp="1598599588607">
+    <state x="1099" y="279" width="163" height="548" key="#xdebugger.XInspectDialog/0.27.1920.1053@0.27.1920.1053" timestamp="1598890523043" />
+    <state x="944" y="297" key="#xdebugger.evaluate" timestamp="1598891224362">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
-    <state width="1422" height="278" key="GridCell.Tab.0.center/0.27.1920.1053@0.27.1920.1053" timestamp="1598599588607" />
-    <state width="1422" height="278" key="GridCell.Tab.0.left" timestamp="1598599588607">
+    <state x="944" y="297" key="#xdebugger.evaluate/0.27.1920.1053@0.27.1920.1053" timestamp="1598891224362" />
+    <state width="1422" height="203" key="GridCell.Tab.0.bottom" timestamp="1598891310742">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
-    <state width="1422" height="278" key="GridCell.Tab.0.left/0.27.1920.1053@0.27.1920.1053" timestamp="1598599588607" />
-    <state width="1422" height="278" key="GridCell.Tab.0.right" timestamp="1598599588607">
+    <state width="1422" height="203" key="GridCell.Tab.0.bottom/0.27.1920.1053@0.27.1920.1053" timestamp="1598891310742" />
+    <state width="1422" height="203" key="GridCell.Tab.0.center" timestamp="1598891310741">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
-    <state width="1422" height="278" key="GridCell.Tab.0.right/0.27.1920.1053@0.27.1920.1053" timestamp="1598599588607" />
+    <state width="1422" height="203" key="GridCell.Tab.0.center/0.27.1920.1053@0.27.1920.1053" timestamp="1598891310741" />
+    <state width="1422" height="203" key="GridCell.Tab.0.left" timestamp="1598891310741">
+      <screen x="0" y="27" width="1920" height="1053" />
+    </state>
+    <state width="1422" height="203" key="GridCell.Tab.0.left/0.27.1920.1053@0.27.1920.1053" timestamp="1598891310741" />
+    <state width="1422" height="203" key="GridCell.Tab.0.right" timestamp="1598891310742">
+      <screen x="0" y="27" width="1920" height="1053" />
+    </state>
+    <state width="1422" height="203" key="GridCell.Tab.0.right/0.27.1920.1053@0.27.1920.1053" timestamp="1598891310742" />
+    <state width="1422" height="343" key="GridCell.Tab.1.bottom" timestamp="1598891287238">
+      <screen x="0" y="27" width="1920" height="1053" />
+    </state>
+    <state width="1422" height="343" key="GridCell.Tab.1.bottom/0.27.1920.1053@0.27.1920.1053" timestamp="1598891287238" />
+    <state width="1422" height="343" key="GridCell.Tab.1.center" timestamp="1598891287238">
+      <screen x="0" y="27" width="1920" height="1053" />
+    </state>
+    <state width="1422" height="343" key="GridCell.Tab.1.center/0.27.1920.1053@0.27.1920.1053" timestamp="1598891287238" />
+    <state width="1422" height="343" key="GridCell.Tab.1.left" timestamp="1598891287238">
+      <screen x="0" y="27" width="1920" height="1053" />
+    </state>
+    <state width="1422" height="343" key="GridCell.Tab.1.left/0.27.1920.1053@0.27.1920.1053" timestamp="1598891287238" />
+    <state width="1422" height="343" key="GridCell.Tab.1.right" timestamp="1598891287238">
+      <screen x="0" y="27" width="1920" height="1053" />
+    </state>
+    <state width="1422" height="343" key="GridCell.Tab.1.right/0.27.1920.1053@0.27.1920.1053" timestamp="1598891287238" />
     <state x="675" y="188" key="SettingsEditor" timestamp="1598597348702">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
     <state x="675" y="188" key="SettingsEditor/0.27.1920.1053@0.27.1920.1053" timestamp="1598597348702" />
-    <state x="781" y="289" width="800" height="528" key="Vcs.Push.Dialog.v2" timestamp="1598598079600">
+    <state x="781" y="289" width="800" height="528" key="Vcs.Push.Dialog.v2" timestamp="1598692565274">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
-    <state x="781" y="289" width="800" height="528" key="Vcs.Push.Dialog.v2/0.27.1920.1053@0.27.1920.1053" timestamp="1598598079600" />
-    <state x="849" y="259" width="672" height="678" key="search.everywhere.popup" timestamp="1598598098869">
+    <state x="781" y="289" width="800" height="528" key="Vcs.Push.Dialog.v2/0.27.1920.1053@0.27.1920.1053" timestamp="1598692565274" />
+    <state x="876" y="286" width="620" height="534" key="find.popup" timestamp="1598690926183">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
-    <state x="849" y="259" width="672" height="678" key="search.everywhere.popup/0.27.1920.1053@0.27.1920.1053" timestamp="1598598098869" />
+    <state x="876" y="286" width="620" height="534" key="find.popup/0.27.1920.1053@0.27.1920.1053" timestamp="1598690926183" />
+    <state x="849" y="259" width="672" height="678" key="search.everywhere.popup" timestamp="1598891133968">
+      <screen x="0" y="27" width="1920" height="1053" />
+    </state>
+    <state x="849" y="259" width="672" height="678" key="search.everywhere.popup/0.27.1920.1053@0.27.1920.1053" timestamp="1598891133968" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/godi$go_test_github_com_noartem_godi.out" NAME="go test github.com/noartem/godi Coverage Results" MODIFIED="1598891294582" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
 </project>

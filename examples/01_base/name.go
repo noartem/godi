@@ -5,7 +5,7 @@ type IName interface {
 	Gen() string
 }
 
-// Name service implementaion
+// Name service implementation
 type Name struct {
 	random IRandom
 }
