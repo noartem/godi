@@ -11,10 +11,10 @@ type Name struct {
 }
 
 // NewName is a IName factory
-func NewName(randoms []IRandom) IName {
+func NewName(randoms []IRandom) (IName, error) {
 	return &Name{
 		random: randoms[0],
-	}
+	}, nil
 }
 
 // Gen generate name

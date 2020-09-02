@@ -21,14 +21,6 @@
   <component name="ChangeListManager">
     <list default="true" id="060bbc38-98bd-431c-b10c-93d8d9a47fd9" name="Default Changelist" comment="Fix factory out validator and parser&#10;Add tests">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/01_base/greeter.go" beforeDir="false" afterPath="$PROJECT_DIR$/examples/01_base/greeter.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/01_base/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/examples/01_base/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/01_base/name.go" beforeDir="false" afterPath="$PROJECT_DIR$/examples/01_base/name.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/examples/01_base/rand.go" beforeDir="false" afterPath="$PROJECT_DIR$/examples/01_base/rand.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/get_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/get_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/register.go" beforeDir="false" afterPath="$PROJECT_DIR$/register.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resolve.go" beforeDir="false" afterPath="$PROJECT_DIR$/resolve.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -62,7 +54,7 @@
     <property name="go.import.settings.migrated" value="true" />
     <property name="go.sdk.automatically.set" value="true" />
     <property name="go.tried.to.enable.integration.vgo.integrator" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../godi-example" />
     <property name="settings.editor.selected.configurable" value="preferences.keymap" />
   </component>
   <component name="RunManager" selected="Go Test.go test github.com/noartem/godi">
@@ -146,7 +138,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Fix factory out validator and parser&#10;Add tests" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix factory out validator and parser&#10;Add tests" />
+    <MESSAGE value="Add Structures with dependencies in Input support" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add Structures with dependencies in Input support" />
   </component>
   <component name="VgoProject">
     <integration-enabled>true</integration-enabled>
@@ -164,54 +157,58 @@
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
     <state x="944" y="297" key="#xdebugger.evaluate/0.27.1920.1053@0.27.1920.1053" timestamp="1598891224362" />
-    <state width="1422" height="203" key="GridCell.Tab.0.bottom" timestamp="1598891310742">
+    <state x="979" y="311" width="424" height="484" key="FileChooserDialogImpl" timestamp="1598979916637">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
-    <state width="1422" height="203" key="GridCell.Tab.0.bottom/0.27.1920.1053@0.27.1920.1053" timestamp="1598891310742" />
-    <state width="1422" height="203" key="GridCell.Tab.0.center" timestamp="1598891310741">
+    <state x="979" y="311" width="424" height="484" key="FileChooserDialogImpl/0.27.1920.1053@0.27.1920.1053" timestamp="1598979916637" />
+    <state width="1422" height="343" key="GridCell.Tab.0.bottom" timestamp="1598892851293">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
-    <state width="1422" height="203" key="GridCell.Tab.0.center/0.27.1920.1053@0.27.1920.1053" timestamp="1598891310741" />
-    <state width="1422" height="203" key="GridCell.Tab.0.left" timestamp="1598891310741">
+    <state width="1422" height="343" key="GridCell.Tab.0.bottom/0.27.1920.1053@0.27.1920.1053" timestamp="1598892851293" />
+    <state width="1422" height="343" key="GridCell.Tab.0.center" timestamp="1598892851292">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
-    <state width="1422" height="203" key="GridCell.Tab.0.left/0.27.1920.1053@0.27.1920.1053" timestamp="1598891310741" />
-    <state width="1422" height="203" key="GridCell.Tab.0.right" timestamp="1598891310742">
+    <state width="1422" height="343" key="GridCell.Tab.0.center/0.27.1920.1053@0.27.1920.1053" timestamp="1598892851292" />
+    <state width="1422" height="343" key="GridCell.Tab.0.left" timestamp="1598892851292">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
-    <state width="1422" height="203" key="GridCell.Tab.0.right/0.27.1920.1053@0.27.1920.1053" timestamp="1598891310742" />
-    <state width="1422" height="343" key="GridCell.Tab.1.bottom" timestamp="1598891287238">
+    <state width="1422" height="343" key="GridCell.Tab.0.left/0.27.1920.1053@0.27.1920.1053" timestamp="1598892851292" />
+    <state width="1422" height="343" key="GridCell.Tab.0.right" timestamp="1598892851293">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
-    <state width="1422" height="343" key="GridCell.Tab.1.bottom/0.27.1920.1053@0.27.1920.1053" timestamp="1598891287238" />
-    <state width="1422" height="343" key="GridCell.Tab.1.center" timestamp="1598891287238">
+    <state width="1422" height="343" key="GridCell.Tab.0.right/0.27.1920.1053@0.27.1920.1053" timestamp="1598892851293" />
+    <state width="1422" height="343" key="GridCell.Tab.1.bottom" timestamp="1598892851294">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
-    <state width="1422" height="343" key="GridCell.Tab.1.center/0.27.1920.1053@0.27.1920.1053" timestamp="1598891287238" />
-    <state width="1422" height="343" key="GridCell.Tab.1.left" timestamp="1598891287238">
+    <state width="1422" height="343" key="GridCell.Tab.1.bottom/0.27.1920.1053@0.27.1920.1053" timestamp="1598892851294" />
+    <state width="1422" height="343" key="GridCell.Tab.1.center" timestamp="1598892851293">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
-    <state width="1422" height="343" key="GridCell.Tab.1.left/0.27.1920.1053@0.27.1920.1053" timestamp="1598891287238" />
-    <state width="1422" height="343" key="GridCell.Tab.1.right" timestamp="1598891287238">
+    <state width="1422" height="343" key="GridCell.Tab.1.center/0.27.1920.1053@0.27.1920.1053" timestamp="1598892851293" />
+    <state width="1422" height="343" key="GridCell.Tab.1.left" timestamp="1598892851293">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
-    <state width="1422" height="343" key="GridCell.Tab.1.right/0.27.1920.1053@0.27.1920.1053" timestamp="1598891287238" />
+    <state width="1422" height="343" key="GridCell.Tab.1.left/0.27.1920.1053@0.27.1920.1053" timestamp="1598892851293" />
+    <state width="1422" height="343" key="GridCell.Tab.1.right" timestamp="1598892851293">
+      <screen x="0" y="27" width="1920" height="1053" />
+    </state>
+    <state width="1422" height="343" key="GridCell.Tab.1.right/0.27.1920.1053@0.27.1920.1053" timestamp="1598892851293" />
     <state x="675" y="188" key="SettingsEditor" timestamp="1598597348702">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
     <state x="675" y="188" key="SettingsEditor/0.27.1920.1053@0.27.1920.1053" timestamp="1598597348702" />
-    <state x="781" y="289" width="800" height="528" key="Vcs.Push.Dialog.v2" timestamp="1598692565274">
+    <state x="781" y="289" width="800" height="528" key="Vcs.Push.Dialog.v2" timestamp="1598892842217">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
-    <state x="781" y="289" width="800" height="528" key="Vcs.Push.Dialog.v2/0.27.1920.1053@0.27.1920.1053" timestamp="1598692565274" />
+    <state x="781" y="289" width="800" height="528" key="Vcs.Push.Dialog.v2/0.27.1920.1053@0.27.1920.1053" timestamp="1598892842217" />
     <state x="876" y="286" width="620" height="534" key="find.popup" timestamp="1598690926183">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
     <state x="876" y="286" width="620" height="534" key="find.popup/0.27.1920.1053@0.27.1920.1053" timestamp="1598690926183" />
-    <state x="849" y="259" width="672" height="678" key="search.everywhere.popup" timestamp="1598891133968">
+    <state x="849" y="259" width="672" height="678" key="search.everywhere.popup" timestamp="1598892837534">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
-    <state x="849" y="259" width="672" height="678" key="search.everywhere.popup/0.27.1920.1053@0.27.1920.1053" timestamp="1598891133968" />
+    <state x="849" y="259" width="672" height="678" key="search.everywhere.popup/0.27.1920.1053@0.27.1920.1053" timestamp="1598892837534" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/godi$go_test_github_com_noartem_godi.out" NAME="go test github.com/noartem/godi Coverage Results" MODIFIED="1598891294582" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />

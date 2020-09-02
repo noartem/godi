@@ -23,8 +23,8 @@ type deps struct {
 	Name iName
 }
 
-func newHello(deps deps) iHello {
-	return &eHello{deps}
+func newHello(deps deps) (iHello, error) {
+	return &eHello{deps}, nil
 }
 func (hello *eHello) Hello() {
 	log.Println(hello.deps.Name.Name())

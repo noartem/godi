@@ -142,13 +142,17 @@ type factoryOut struct {
 }
 
 func parseFactoryOutValues(values []reflect.Value) (*factoryOut, error) {
+	var hasError bool
+	var hasOptions bool
 	out := &factoryOut{}
 	if len(values) >= 2 {
 		out1 := values[1].Type()
 		if out1.Implements(ErrorInterface) {
-			out.err = values[1].Interface().(error)
+			out.err = toError(values[1])
+			hasError = true
 		} else if out1 == BeanOptionsType {
 			out.options = values[1].Interface().(*BeanOptions)
+			hasOptions = true
 		} else {
 			return nil, fmt.Errorf("invalid first factory out type: %v", values[1].Type().String())
 		}
@@ -157,13 +161,13 @@ func parseFactoryOutValues(values []reflect.Value) (*factoryOut, error) {
 	if len(values) == 3 {
 		out2 := values[2].Type()
 		if out2.Implements(ErrorInterface) {
-			if out.err != nil {
+			if hasError {
 				return nil, fmt.Errorf("invalid factory out values: Already has error")
 			}
 
-			out.err = values[2].Interface().(error)
+			out.err = toError(values[2])
 		} else if out2 == BeanOptionsType {
-			if out.options != nil {
+			if hasOptions {
 				return nil, fmt.Errorf("invalid factory out values: Already has options")
 			}
 
@@ -176,4 +180,13 @@ func parseFactoryOutValues(values []reflect.Value) (*factoryOut, error) {
 	out.bean = values[0].Interface()
 
 	return out, nil
+}
+
+func toError(value reflect.Value) error {
+	valueI := value.Interface()
+	if valueI != nil {
+		return valueI.(error)
+	}
+
+	return nil
 }
