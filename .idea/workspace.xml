@@ -19,9 +19,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="060bbc38-98bd-431c-b10c-93d8d9a47fd9" name="Default Changelist" comment="Fix factory out validator and parser&#10;Add tests">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="060bbc38-98bd-431c-b10c-93d8d9a47fd9" name="Default Changelist" comment="Fix factory out validator and parser&#10;Add tests" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -54,10 +52,10 @@
     <property name="go.import.settings.migrated" value="true" />
     <property name="go.sdk.automatically.set" value="true" />
     <property name="go.tried.to.enable.integration.vgo.integrator" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../godi-example" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="preferences.keymap" />
   </component>
-  <component name="RunManager" selected="Go Test.go test github.com/noartem/godi">
+  <component name="RunManager" selected="Go Test.TestGet in github.com/noartem/godi">
     <configuration name="go build github.com/noartem/godi/examples/01_base" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="godi" />
       <working_directory value="$PROJECT_DIR$" />
@@ -67,7 +65,7 @@
       <directory value="$PROJECT_DIR$" />
       <method v="2" />
     </configuration>
-    <configuration name="TestCheckFactoryOut in github.com/noartem/godi" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+    <configuration name="TestGet in github.com/noartem/godi (2)" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="godi" />
       <working_directory value="$PROJECT_DIR$" />
       <framework value="gotest" />
@@ -75,10 +73,10 @@
       <package value="github.com/noartem/godi" />
       <directory value="$PROJECT_DIR$" />
       <filePath value="$PROJECT_DIR$" />
-      <pattern value="^\QTestCheckFactoryOut\E$" />
+      <pattern value="^\QTestGet\E$" />
       <method v="2" />
     </configuration>
-    <configuration name="TestGet in github.com/noartem/godi (1)" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+    <configuration name="TestGet in github.com/noartem/godi (3)" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="godi" />
       <working_directory value="$PROJECT_DIR$" />
       <framework value="gotest" />
@@ -112,11 +110,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Go Test.go test github.com/noartem/godi" />
-        <item itemvalue="Go Test.TestGet in github.com/noartem/godi (1)" />
         <item itemvalue="Go Test.TestGet in github.com/noartem/godi" />
+        <item itemvalue="Go Test.TestGet in github.com/noartem/godi (3)" />
+        <item itemvalue="Go Test.TestGet in github.com/noartem/godi (2)" />
         <item itemvalue="Go Build.go build github.com/noartem/godi/examples/01_base" />
-        <item itemvalue="Go Test.TestCheckFactoryOut in github.com/noartem/godi" />
+        <item itemvalue="Go Test.go test github.com/noartem/godi" />
       </list>
     </recent_temporary>
   </component>
@@ -139,7 +137,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Fix factory out validator and parser&#10;Add tests" />
     <MESSAGE value="Add Structures with dependencies in Input support" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add Structures with dependencies in Input support" />
+    <MESSAGE value="Fix parseFactoryOutValues" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix parseFactoryOutValues" />
   </component>
   <component name="VgoProject">
     <integration-enabled>true</integration-enabled>
@@ -153,54 +152,54 @@
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
     <state x="1099" y="279" width="163" height="548" key="#xdebugger.XInspectDialog/0.27.1920.1053@0.27.1920.1053" timestamp="1598890523043" />
-    <state x="944" y="297" key="#xdebugger.evaluate" timestamp="1598891224362">
+    <state x="944" y="297" key="#xdebugger.evaluate" timestamp="1599023450531">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
-    <state x="944" y="297" key="#xdebugger.evaluate/0.27.1920.1053@0.27.1920.1053" timestamp="1598891224362" />
+    <state x="944" y="297" key="#xdebugger.evaluate/0.27.1920.1053@0.27.1920.1053" timestamp="1599023450531" />
     <state x="979" y="311" width="424" height="484" key="FileChooserDialogImpl" timestamp="1598979916637">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
     <state x="979" y="311" width="424" height="484" key="FileChooserDialogImpl/0.27.1920.1053@0.27.1920.1053" timestamp="1598979916637" />
-    <state width="1422" height="343" key="GridCell.Tab.0.bottom" timestamp="1598892851293">
+    <state width="1419" height="343" key="GridCell.Tab.0.bottom" timestamp="1599023694747">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
-    <state width="1422" height="343" key="GridCell.Tab.0.bottom/0.27.1920.1053@0.27.1920.1053" timestamp="1598892851293" />
-    <state width="1422" height="343" key="GridCell.Tab.0.center" timestamp="1598892851292">
+    <state width="1419" height="343" key="GridCell.Tab.0.bottom/0.27.1920.1053@0.27.1920.1053" timestamp="1599023694747" />
+    <state width="1419" height="343" key="GridCell.Tab.0.center" timestamp="1599023694747">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
-    <state width="1422" height="343" key="GridCell.Tab.0.center/0.27.1920.1053@0.27.1920.1053" timestamp="1598892851292" />
-    <state width="1422" height="343" key="GridCell.Tab.0.left" timestamp="1598892851292">
+    <state width="1419" height="343" key="GridCell.Tab.0.center/0.27.1920.1053@0.27.1920.1053" timestamp="1599023694747" />
+    <state width="1419" height="343" key="GridCell.Tab.0.left" timestamp="1599023694746">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
-    <state width="1422" height="343" key="GridCell.Tab.0.left/0.27.1920.1053@0.27.1920.1053" timestamp="1598892851292" />
-    <state width="1422" height="343" key="GridCell.Tab.0.right" timestamp="1598892851293">
+    <state width="1419" height="343" key="GridCell.Tab.0.left/0.27.1920.1053@0.27.1920.1053" timestamp="1599023694746" />
+    <state width="1419" height="343" key="GridCell.Tab.0.right" timestamp="1599023694747">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
-    <state width="1422" height="343" key="GridCell.Tab.0.right/0.27.1920.1053@0.27.1920.1053" timestamp="1598892851293" />
-    <state width="1422" height="343" key="GridCell.Tab.1.bottom" timestamp="1598892851294">
+    <state width="1419" height="343" key="GridCell.Tab.0.right/0.27.1920.1053@0.27.1920.1053" timestamp="1599023694747" />
+    <state width="1419" height="343" key="GridCell.Tab.1.bottom" timestamp="1599023694750">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
-    <state width="1422" height="343" key="GridCell.Tab.1.bottom/0.27.1920.1053@0.27.1920.1053" timestamp="1598892851294" />
-    <state width="1422" height="343" key="GridCell.Tab.1.center" timestamp="1598892851293">
+    <state width="1419" height="343" key="GridCell.Tab.1.bottom/0.27.1920.1053@0.27.1920.1053" timestamp="1599023694750" />
+    <state width="1419" height="343" key="GridCell.Tab.1.center" timestamp="1599023694749">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
-    <state width="1422" height="343" key="GridCell.Tab.1.center/0.27.1920.1053@0.27.1920.1053" timestamp="1598892851293" />
-    <state width="1422" height="343" key="GridCell.Tab.1.left" timestamp="1598892851293">
+    <state width="1419" height="343" key="GridCell.Tab.1.center/0.27.1920.1053@0.27.1920.1053" timestamp="1599023694749" />
+    <state width="1419" height="343" key="GridCell.Tab.1.left" timestamp="1599023694748">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
-    <state width="1422" height="343" key="GridCell.Tab.1.left/0.27.1920.1053@0.27.1920.1053" timestamp="1598892851293" />
-    <state width="1422" height="343" key="GridCell.Tab.1.right" timestamp="1598892851293">
+    <state width="1419" height="343" key="GridCell.Tab.1.left/0.27.1920.1053@0.27.1920.1053" timestamp="1599023694748" />
+    <state width="1419" height="343" key="GridCell.Tab.1.right" timestamp="1599023694749">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
-    <state width="1422" height="343" key="GridCell.Tab.1.right/0.27.1920.1053@0.27.1920.1053" timestamp="1598892851293" />
+    <state width="1419" height="343" key="GridCell.Tab.1.right/0.27.1920.1053@0.27.1920.1053" timestamp="1599023694749" />
     <state x="675" y="188" key="SettingsEditor" timestamp="1598597348702">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
     <state x="675" y="188" key="SettingsEditor/0.27.1920.1053@0.27.1920.1053" timestamp="1598597348702" />
-    <state x="781" y="289" width="800" height="528" key="Vcs.Push.Dialog.v2" timestamp="1598892842217">
+    <state x="781" y="289" width="800" height="528" key="Vcs.Push.Dialog.v2" timestamp="1599023681543">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>
-    <state x="781" y="289" width="800" height="528" key="Vcs.Push.Dialog.v2/0.27.1920.1053@0.27.1920.1053" timestamp="1598892842217" />
+    <state x="781" y="289" width="800" height="528" key="Vcs.Push.Dialog.v2/0.27.1920.1053@0.27.1920.1053" timestamp="1599023681543" />
     <state x="876" y="286" width="620" height="534" key="find.popup" timestamp="1598690926183">
       <screen x="0" y="27" width="1920" height="1053" />
     </state>

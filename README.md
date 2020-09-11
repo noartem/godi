@@ -4,6 +4,8 @@ Simple Golang [DI](https://en.wikipedia.org/wiki/Dependency_injection) container
 
 Examples: [examples folder](https://github.com/noartem/godi/tree/master/examples)
 
+Full example: [noartem/godi-example](https://github.com/noartem/godi-example)
+
 Godoc: [pkg.go.dev](https://pkg.go.dev/github.com/noartem/godi)
 
 ## Get started
